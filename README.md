@@ -1,4 +1,4 @@
-# A Coefficient of Restitution Testing System for Baseballs
+# ENGR 323L PID Motor Control Project
 
 The SiliconLab 8051F120 evaluation board will be used to perform DC motor speed control. To achieve the desired goal for this project, the specifications that the DC motor embedded system must satisfy are:
 
