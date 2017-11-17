@@ -10,7 +10,7 @@ Sending Pulse-Width Modulation (PWM) signal to drive the DC motor at various spe
 
 by Adam Woo, Takuto Wada
 
-## Hardware
+## Hardware and Software
 
 Here is a list of the selected hardware:
 
@@ -21,47 +21,3 @@ Here is a list of the selected hardware:
 | Microprocessor | SiliconLab 8051F120 |
 | DC Motor | generic brushed motor |
 | IDE | Silicon Laboratories |
-
-
-## Hardware Design Strategy and Construction of the System
-
-To accomplish this project, one must understand the functionality of the two chips, DC motor, potentiometer, 16×2 LCD display, and how they work together with the SiliconLab 8051F120 board. The H-bridge is used convert the digital PWM signal sent by the 8051 to a DC voltage to spin the DC motor. The chip layout of H-bridge and the six connection wires of the DC motor are shown in Fig. 2.
-
- screen-shot-2016-12-21-at-3-30-48-pm dc-motor-control-report
-Figure 2- H-bridge Chip and DC Motor Connection wires
-
-For the H-bridge chip to operate as desired, one must set the four pins (1,2EN, 3,4EN, VCC1, and VCC2) to HIGH and four pins to LOW (4 Heat sink and Ground). 1A will be connected to the 8051 and will receive PWM signal. 1Y will be connected to MOT(+) of the DC motor. Three connection wires of the motor (MOT (-), Emitter, and Cathode) will be set to LOW. Collector will be connected to a 1000 resistor and Anode to a 220 resistor and both will be connected to HIGH.
-
-The DC motor has a built in optical encoder that uses a phototransistor/LED sensor to generate 80 sinusoidal signals (0.2-2 volts peak to peak) per turn. This signal must be processed through an operational amplifier to convert the small sinusoidal waves to signals for the 8051 to process. The process in which the actual speed of the motor is calculated will be discussed in Software Design Strategy Section.
-
-screen-shot-2016-12-21-at-3-37-57-pm
-
-Figure 3 – Operational Amplifier
-
-The Collector wire from the DC motor is connected to the non-inverting input of the op-amp. Inverting input of the op-amp is connected to a reference voltage that was determined appropriately by using the oscilloscope that displayed the output signal from the op-amp. The reference voltage of 4.75V gave the best output to be processed by the 8051. A voltage divider circuit of 220 and 4700 with input voltage of 5V gave an output of 4.75V.
-
-The potentiometer is used to output various voltages in the range from 0V to 5V by turning the knob. This will be used to determine the desired speed of the motor. This process will be discussed in Software Design Strategy Section.
-
-The 16×2 LCD has 14 pins that needs to be wired correctly to properly display desired message on it. The circuit diagram of the 16×2 LCD is shown in Fig.4.
-
-images
-
-Figure 4 – 2×16 LCD Display Circuit Diagram
-
-Vcc is connected to HIGH and GND is connected to LOW. The operating voltage (VO) is connected to a 10k potentiometer to adjust the contrast of the LCD display.  The RS, R/W, and the E pins were connected to P6.0, P6.1, and P6.2 respectively. The eight data bits (DB0-DB7) are connected to Port 5 of the 8051.
-
-The completed hardware system is shown in Fig.5  below.
-
-screen-shot-2016-12-21-at-3-42-37-pm
-
-Figure 5 – Completed Hardware of DC motor embedded system
-
-Establishing all desired connection, the completed hardware system of the DC motor embedded system is shown in Fig.6.
-
-screen-shot-2016-12-21-at-3-43-59-pm
-
-Figure 6 – DC motor embedded system
-
-## Programming
-
-## Results
